@@ -24,6 +24,7 @@ app.get("/",(req,res)=>{
 });
 
 app.post("/",(req,res)=>{
+    //middleware in this case was reqiured for reading the JSON data sent by the client else the req.body will always be undefined
     console.log(req.body);
     let a={
         health:req.body.isHealthy==="true"

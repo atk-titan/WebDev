@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Document</title>
+    
+    <script>
+        let timeOut;
+        function debounce(){
+            clearTimeout(timeOut);
+            setTimeout(()=>{
+                add();
+            },1000);
+        }
+        
+        function add(){
+            const inp = document.querySelectorAll("input");
+            const button = document.querySelector("button");
+            const ele = document.querySelector("#finalSum");
+            // console.log(parseInt(inp[0].value) + parseInt(inp[1].value)); // Concatenate the values of the first two inputs
+            // ele.innerHTML=parseInt(inp[0].value) + parseInt(inp[1].value);
+
+            fetch(`http://localhost:3000/sum?a=${inp[0].value}&b=${inp[1].value}`)
+                .then((res)=>{
+                    res.json().then((data)=>{
+                        ele.innerHTML="<h1>"+data.sum+"</h1>";
+                    });
+                });
+        }
+
+        // async function add(){
+        //     const inp = document.querySelectorAll("input");
+        //     const button = document.querySelector("button");
+        //     const ele = document.querySelector("#finalSum");
+
+        //     const sum = await fetch(`http://localhost:3000/sum?a=${inp[0].value}&b=${inp[1].value}`);
+        //     const data = await sum.json();
+
+        //     ele.innerHTML="<h1>"+data.sum+"</h1>";
+        // }
+    </script>
+</head>
+<body>
+    <input type="text" placeholder="first Number" oninput="debounce()">
+    <input type="text" placeholder="second number" oninput="debounce()">
+    <div id="finalSum"></div>
+</body>
+</html>

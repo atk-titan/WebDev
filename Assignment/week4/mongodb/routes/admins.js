@@ -31,10 +31,23 @@ route.get("/courses",async (req,res)=>{
     }
 });
 
-route.post("/courses",(req,res)=>{
-    
+route.post("/courses",async (req,res)=>{
+    try{
+        const username=req.body.username;
+        const title=req.body.title;
+        const price=req.body.price;
+
+        const course = await createCourse(username,title,price);
+
+        res.json({
+            message: 'Course created successfully', 
+            courseId: course._id
+        });
+    }
+    catch(err){
+        console.error("issue while posting course : ",err);
+        res.status(500).json({error: "issue while posting course"});
+    }
 });
 
-route.get("/purchasedCourses",(req,res)=>{
-
-});
+module.exports = route;

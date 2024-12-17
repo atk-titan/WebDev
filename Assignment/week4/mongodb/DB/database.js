@@ -63,7 +63,6 @@ async function addUser(admin,username,password){
                 username : username,
                 password: crypto.createHash('sha256').update(password).digest('hex'),    
             });
-            alert("new admin created");
             console.log("new admin created");
         }
         else{
@@ -71,7 +70,6 @@ async function addUser(admin,username,password){
                 username : username,
                 password: crypto.createHash('sha256').update(password).digest('hex'),
             });
-            alert("new user created");
             console.log("new user created");
         }
     }
@@ -82,6 +80,14 @@ async function addUser(admin,username,password){
 
 async function createCourse(username,title,price){
     try{
+        const admin = await Admin.findOne({
+            username:username
+        })
+
+        if(!admin){
+            throw new Error(`Admin with username "${username}" not found.`);
+        }
+        
         const c = await Course.create({
             title : title,
             price : price
@@ -92,6 +98,8 @@ async function createCourse(username,title,price){
         },{
             $push:{uploadedCourses : c._id}
         });
+
+        return c;
     }
     catch(err){
         console.error("small error in course creation :",err);
@@ -120,4 +128,23 @@ async function purchaseCourse(username,course_id){
     }
 }
 
-module.exports = {addUser , createCourse , viewCourses , purchaseCourse};
+async function getPurchasedCourse(username) {
+    try {
+        // Find the user and get their purchasedCourses array
+        const user = await User.findOne({ username: username });
+
+        if (!user) {
+            throw new Error(`User with username "${username}" not found.`);
+        }
+
+        // Use the purchasedCourses array to fetch the corresponding courses
+        const courses = await Course.find({ _id: { $in: user.purchasedCourses } });
+
+        return courses;
+    } catch (err) {
+        console.error("Error while fetching the purchased courses:", err);
+        throw err; // Propagate the error for further handling
+    }
+}
+
+module.exports = {addUser , createCourse , viewCourses , purchaseCourse , getPurchasedCourse};

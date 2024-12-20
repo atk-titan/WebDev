@@ -1,8 +1,11 @@
 const express = require('express');
 const {createTodo,updateTodo} =require("./types");
 const {todo} = require('./mongo ');
+const cors = require("cors");
 
 const app = express();
+
+app.use(cors());
 
 app.use(express.json());
 

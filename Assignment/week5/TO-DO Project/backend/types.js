@@ -5,7 +5,7 @@ const createTodo = zod.object({
     description: zod.string().max(100),
 });
 
-const updateTodo = zod.Schema({
+const updateTodo = zod.object({
     id : zod.string()
 });
 

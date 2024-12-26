@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const crypto = require('crypto');
 
-mongoose.connect("mongodb+srv://gmane8451:UIWBU3boNS4FIvBm@cluster0.feaga.mongodb.net/Udemy")
+mongoose.connect("mongodbURL")
     .then(()=>console.log("mongoDb connection successful"))
     .catch((err)=>console.log("connection error occured"+"/t connot connect with MongoDB : ",err))
 

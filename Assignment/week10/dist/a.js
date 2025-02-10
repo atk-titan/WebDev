@@ -25,3 +25,21 @@ function isLegal(user) {
     return user.age >= 18 ? true : false;
 }
 console.log(isLegal(user));
+let n = [23, 34];
+var direction;
+(function (direction) {
+    direction[direction["Up"] = 0] = "Up";
+    direction[direction["Down"] = 1] = "Down";
+    direction[direction["Right"] = 2] = "Right";
+    direction[direction["Left"] = 3] = "Left";
+})(direction || (direction = {}));
+function doSomething(keyPressed) {
+    if (keyPressed) {
+        console.log(keyPressed);
+    }
+}
+// doSomething("up");
+doSomething(direction.Down);
+(function (keyPressed) {
+    console.log(keyPressed);
+})(direction.Up);

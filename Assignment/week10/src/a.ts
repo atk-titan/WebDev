@@ -51,3 +51,25 @@ console.log(isLegal(user));
 
 type NumberArr = number[];
 let n:NumberArr =[23,34];
+
+
+type keyInput = "up"|"down"|"right"|"left";
+
+enum direction{
+    Up,
+    Down,
+    Right,
+    Left
+}
+function doSomething(keyPressed:direction){
+    if(keyPressed){
+        console.log(keyPressed);
+    }
+}
+
+// doSomething("up");
+doSomething(direction.Down);
+
+(function(keyPressed:direction){
+    console.log(keyPressed);
+})(direction.Up);

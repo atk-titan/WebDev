@@ -19,7 +19,15 @@ async function createTable() {
         );    
     `);
 
-    console.log(result);
+    console.log("created"+result);
 }
 
-createTable();
+async function insertData(){
+    const input = `INSERT INTO users (username,email,password) VALUES ('gaurav','gm@gmail.com','dingdongding')`
+    const result = await client.query(input);
+
+    console.log("inserted"+result);
+}
+
+// createTable();
+insertData();

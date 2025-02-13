@@ -27,7 +27,15 @@ function createTable() {
             created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
         );    
     `);
-        console.log(result);
+        console.log("created" + result);
     });
 }
-createTable();
+function insertData() {
+    return __awaiter(this, void 0, void 0, function* () {
+        const input = `INSERT INTO users (username,email,password) VALUES ('gaurav','gm@gmail.com','dingdongding')`;
+        const result = yield client.query(input);
+        console.log("inserted" + result);
+    });
+}
+// createTable();
+insertData();

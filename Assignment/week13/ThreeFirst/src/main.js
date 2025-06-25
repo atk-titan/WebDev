@@ -1,39 +1,50 @@
 import * as THREE from 'three';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 
+// Scene setup
 const scene = new THREE.Scene();
 
-const cubeMaterial = new THREE.MeshBasicMaterial({color:"red"});
-const cubeGeometry = new THREE.BoxGeometry(1,1,1);
-
-const cubeMesh = new THREE.Mesh(cubeGeometry,cubeMaterial);
-
+// Cube
+const cubeMaterial = new THREE.MeshBasicMaterial({ color: 'red' });
+const cubeGeometry = new THREE.BoxGeometry(1, 1, 1);
+const cubeMesh = new THREE.Mesh(cubeGeometry, cubeMaterial);
 scene.add(cubeMesh);
 
+// Camera
 const camera = new THREE.PerspectiveCamera(
   75,
-  window.innerWidth/window.innerHeight,
+  window.innerWidth / window.innerHeight,
   0.1,
   30
 );
+camera.position.set(0, 2, 5);
 
-camera.position.z = 5;
-camera.position.y = 2;
+// Renderer
+const canvas = document.querySelector('canvas.threejs');
+const renderer = new THREE.WebGLRenderer({ canvas });
+renderer.setSize(window.innerWidth, window.innerHeight);
 
-const Canvas = document.querySelector("canvas.threejs");
-const renderer = new THREE.WebGLRenderer({
-  canvas:Canvas
-});
-renderer.setSize(window.innerWidth,window.innerHeight);
-
-const controls = new OrbitControls(camera,Canvas);
+// OrbitControls
+const controls = new OrbitControls(camera, canvas);
 controls.enableDamping = true;
+controls.enablePan = true;
+controls.enableKeys = true;
+controls.listenToKeyEvents(window);
+controls.keys = {
+  LEFT: 'KeyA',
+  UP: 'KeyW',
+  RIGHT: 'KeyD',
+  BOTTOM: 'KeyS'
+};
 controls.autoRotate = true;
+controls.keyPanSpeed = 100;
+controls.enableRotate = true;
 
+// Animation loop
 const renderLoop = () => {
   controls.update();
-  renderer.render(scene,camera);
-  window.requestAnimationFrame(renderLoop);
-}
+  renderer.render(scene, camera);
+  requestAnimationFrame(renderLoop);
+};
 
 renderLoop();

@@ -3,7 +3,7 @@ const layout = ({children}:{
 }) => {
   return (
     <div>
-        signin special bar
+        Signin/Signup special bar
         { children }
     </div>
   );

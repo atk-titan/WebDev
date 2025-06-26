@@ -17,14 +17,7 @@ const camera = new THREE.PerspectiveCamera(
   0.1,
   30
 );
-
-// const aspectRatio = window.innerWidth/window.innerHeight ;
-// const camera = new THREE.OrthographicCamera(
-//   -1*aspectRatio,1*aspectRatio,1,-1,0.1,100
-// )
 camera.position.set(0, 0, 2);
-
-
 
 // Renderer
 const canvas = document.querySelector('canvas.threejs');
@@ -38,19 +31,7 @@ renderer.setPixelRatio(Math.min(window.devicePixelRatio,2));
 // OrbitControls
 const controls = new OrbitControls(camera, canvas);
 controls.enableDamping = true;
-
-// controls.enablePan = true;
-// controls.enableKeys = true;
-// controls.listenToKeyEvents(window);
-// controls.keys = {
-//   LEFT: 'KeyA',
-//   UP: 'KeyW',
-//   RIGHT: 'KeyD',
-//   BOTTOM: 'KeyS'
-// };
 controls.autoRotate = true;
-// controls.keyPanSpeed = 100;
-// controls.enableRotate = true;
 
 // Resizing Ready
 window.addEventListener('resize',()=>{

@@ -10,6 +10,8 @@ const cubeGeometry = new THREE.BoxGeometry(1, 1, 1);
 const cubeMesh = new THREE.Mesh(cubeGeometry, cubeMaterial);
 scene.add(cubeMesh);
 
+cubeMesh.scale.set(1,2,1);
+
 // Camera
 const camera = new THREE.PerspectiveCamera(
   75,
@@ -17,7 +19,10 @@ const camera = new THREE.PerspectiveCamera(
   0.1,
   30
 );
-camera.position.set(0, 0, 2);
+camera.position.set(0, 0, 5);
+
+const axisHelper = new THREE.AxesHelper(2);
+scene.add(axisHelper);
 
 // Renderer
 const canvas = document.querySelector('canvas.threejs');
@@ -31,7 +36,6 @@ renderer.setPixelRatio(Math.min(window.devicePixelRatio,2));
 // OrbitControls
 const controls = new OrbitControls(camera, canvas);
 controls.enableDamping = true;
-controls.autoRotate = true;
 
 // Resizing Ready
 window.addEventListener('resize',()=>{

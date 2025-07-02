@@ -10,10 +10,6 @@ const cubeGeometry = new THREE.BoxGeometry(1, 1, 1);
 const cubeMesh = new THREE.Mesh(cubeGeometry, cubeMaterial);
 scene.add(cubeMesh);
 
-// cubeMesh.scale.set(1,2,1);
-cubeMesh.rotation.x = THREE.MathUtils.degToRad(45);
-cubeMesh.rotation.y = THREE.MathUtils.degToRad(45);
-
 // Camera
 const camera = new THREE.PerspectiveCamera(
   75,
@@ -48,8 +44,22 @@ window.addEventListener('resize',()=>{
 
 console.log(window.devicePixelRatio);
 
+// initialize the clock
+const clock = new THREE.Clock();
+let previousTime = 0;
+
 // Animation loop
 const renderLoop = () => {
+  
+  const currentTime = clock.getElapsedTime();
+  const delta = currentTime - previousTime;
+  
+  previousTime = currentTime;
+  
+  cubeMesh.rotation.z += THREE.MathUtils.degToRad(1) * delta * 10;
+  // cubeMesh.scale.x = Math.sin(currentTime) + 2;
+  cubeMesh.position.x = Math.sin(currentTime)
+
   controls.update();
   renderer.render(scene, camera);
   requestAnimationFrame(renderLoop);

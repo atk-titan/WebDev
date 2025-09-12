@@ -27,6 +27,10 @@ io.on('connection',(socket)=>{
         socket.broadcast.emit('recieve-message',data); // Everyone recieves the messages but not the sender
     });
 
+    socket.on("message",({room_id, msg}) => {
+        socket.to(room_id).emit("msg",msg);
+    });
+
     socket.on('disconnect',()=>{
         console.log(`user disconnected`,socket.id);
     });

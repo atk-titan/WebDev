@@ -2,7 +2,7 @@ import Redis from "ioredis";
 
 const redis = new Redis();
 
-const rateLimiter = ({ limit = 20, TTL = 60 } = {}) => async (req, res, next) => {
+export const rateLimiter = ({ limit = 20, TTL = 60 } = {}) => async (req, res, next) => {
     try {
         // Get client IP (works behind proxies)
         const clientIP = req.headers["x-forwarded-for"] || req.socket.remoteAddress;
@@ -35,4 +35,19 @@ const rateLimiter = ({ limit = 20, TTL = 60 } = {}) => async (req, res, next) =>
     }
 };
 
-export default rateLimiter;
+export const getCachedData = ({ key }) => async (req, res, next) => {
+    try {
+        const cachedData = await redis.get(key);
+
+        if (cachedData) {
+            console.log(`Cache hit for key: ${key}`);
+            return res.status(200).json(JSON.parse(cachedData));
+        }
+
+        console.log(`Cache miss for key: ${key}`);
+        next();
+    } catch (error) {
+        console.error("Error fetching from cache:", error);
+        next(); 
+    }
+};

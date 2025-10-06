@@ -51,3 +51,15 @@ export const getCachedData = ({ key }) => async (req, res, next) => {
         next(); 
     }
 };
+
+export const requestCounter = () => async (req, res, next) => {
+  try {
+    const routeKey = `analytics:${req.method}:${req.path}`;
+    await redis.incr(routeKey);
+    await redis.expire(routeKey, 86400); // reset daily
+    next();
+  } catch (err) {
+    console.error("Analytics error:", err);
+    next();
+  }
+};

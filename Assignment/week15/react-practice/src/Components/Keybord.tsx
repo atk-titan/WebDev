@@ -5,10 +5,18 @@ import { MdOutlineKeyboardCapslock } from "react-icons/md";
 import { MdKeyboardReturn } from "react-icons/md";
 import { BsShift } from "react-icons/bs";
 import { MdOutlineSpaceBar } from "react-icons/md";
-import { DiVim } from "react-icons/di";
+
+type KeyType = {
+  head: string;
+  subHead?: string;
+  icon?: React.ReactNode;
+  up?: string;
+  down?: string;
+};
+
 
 const Keybord = () => {
-  const keys = [
+  const keys: KeyType[][] = [
     // Row 1
     [
       { head: "`", subHead: "~" },
@@ -42,6 +50,7 @@ const Keybord = () => {
       { head: "P" },
       { head: "[", subHead: "{" },
       { head: "]", subHead: "}" },
+      // { head: "dummy", subHead: "" },
       { head: "\\", subHead: "|" },
     ],
 
@@ -64,7 +73,7 @@ const Keybord = () => {
 
     // Row 4
     [
-      { head: "Shift", icon: <BsShift size={14} className="mb-1"/> },
+      { head: "Shift", icon: <BsShift size={14} className="mb-1" /> },
       { head: "Z" },
       { head: "X" },
       { head: "C" },
@@ -75,51 +84,89 @@ const Keybord = () => {
       { head: ",", subHead: "<" },
       { head: ".", subHead: ">" },
       { head: "/", subHead: "?" },
-      { head: "Shift", icon: <BsShift size={14} className="mb-1"/> },
+      { head: "Shift", icon: <BsShift size={14} className="mb-1" /> },
     ],
 
     // Row 5 (Bottom)
     [
       { head: "Ctrl" },
-      { head: "Fn"},
-      { head: "Alt"},
+      { head: "Fn" },
+      { head: "Alt" },
       { head: "Space", icon: <MdOutlineSpaceBar /> },
       { head: "Alt" },
       { head: "Ctrl" },
-      { head: "←"},
+      { head: "←" },
       {
         head: "updown",
         up: "↑",
-        down: "↓"
+        down: "↓",
       },
-      { head: "→"},
+      { head: "→" },
     ],
   ];
   return (
-    <div className="relative border border-neutral-700 md:p-4 p-2 min-w-2xs w-[50vw] h-[18vw] bg-keyboard-color rounded-2xl">
+    <div className="relative border border-neutral-700 p-2 min-w-2xs w-[50vw] h-[16vw] bg-keyboard-color rounded-2xl">
       <div className="h-full w-full flex flex-col">
         {keys.map((row, rowIndex) => {
-            return <div key={rowIndex} className="grid grid-cols-58 items-center">
-                {row.map((key, index) => {
-                    let span;
-                    if(key.head === "Space") span="col-span-24";
-                    else if(["Backspace", "Tab"].includes(key.head)) span = "col-span-5";
-                    else if(key.head === "Caps") span = "col-span-6";
-                    else if(key.head === "Shift") span = "col-span-9";
-                    else if(key.head === "Enter") span="col-span-8";
-                    else if(key.head === "Ctrl") span="col-span-5"
-                    else span="col-span-4";
-                    if(key.head === "updown"){
-                        return <div key={index} className={`${span} p-1`}>
-                            <Key head={key.up} subHead={key.subHead} icon={key.icon}/>
-                            <Key head={key.down} subHead={key.subHead} icon={key.icon}/>
+          return (
+            <div
+              key={rowIndex}
+              className="grid grid-cols-58 grid-rows-1 items-center h-[calc(100%/5)]"
+            >
+              {row.map((key, index) => {
+                let span;
+                if (key.head === "Space") span = "col-span-24";
+                else if (["Tab", "\\", "Ctrl"].includes(key.head))
+                  span = "col-span-5";
+                else if (key.head === "Caps") span = "col-span-6";
+                else if (key.head === "Shift") span = "col-span-9";
+                else if (key.head === "Enter") span = "col-span-8";
+                else if (key.head === "Backspace") span = "col-span-6";
+                else if (key.head === "dummy") span = "col-span-1 opacity-0 ";
+                else span = "col-span-4";
+                if(key.head === "→" || key.head === "←"){
+                  return (
+                    <div key={index} className={`${span} relative h-full`}>
+                      <div className="h-full flex flex-col p-1">
+                        <div className="h-full">
+
                         </div>
-                    }
-                    return <div key={index} className={`${span} p-1`}>
-                        <Key head={key.head} subHead={key.subHead} icon={key.icon}/>
+                        <Key
+                          head={key?.head}
+                          icon={key.icon}
+                        />
+                      </div>
                     </div>
-                } )}
+                  );
+                }
+                if (key.head === "updown") {
+                  return (
+                    <div key={index} className={`${span} relative h-full`}>
+                      <div className="h-full flex flex-col justify-center items-center">
+                        <Key
+                          head={key.up || ""}
+                          icon={key.icon}
+                        />
+                        <Key
+                          head={key?.down || ""}
+                          icon={key.icon}
+                        />
+                      </div>
+                    </div>
+                  );
+                }
+                return (
+                  <div key={index} className={`${span} p-1 h-full flex items-end `}>
+                    <Key
+                      head={key.head}
+                      subHead={key.subHead || ""}
+                      icon={key.icon}
+                    />
+                  </div>
+                );
+              })}
             </div>
+          );
         })}
       </div>
     </div>

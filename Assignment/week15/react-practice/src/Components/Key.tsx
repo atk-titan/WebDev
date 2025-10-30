@@ -8,15 +8,15 @@ type Props = {
 
 const Key = (props: Props) => {
   const dontInclude = ["Backspace", "Enter", "Space"];
-  let height = "h-12 hover:h-11 rounded"
+  let height = "h-[100%] hover:h-[97%] rounded"
 
   if(["←", "→", "↑", "↓"].includes(props?.head)){
-    if(props.head === "↓") height = "h-6 hover:h-5.5 rounded-b-sm mt-0.5"
-    else if(props.head === "↑") height = "h-6 hover:h-5.5 rounded-t-sm mt-1"  
-    else height = "h-6 hover:h-5.5 rounded";
+    if(props.head === "↓") height = "h-[42%] hover:h-[41%] rounded-b-sm my-0"
+    else if(props.head === "↑") height = "h-[42%] hover:h-[41%] rounded-t-sm"  
+    else height = "h-[48%] hover:h-[47%] rounded";
   }
   return (
-    <div className={`w-full p-1 relative bg-background hover:cursor-pointer hover:shadow-neutral-600 shadow-[0px_1px_5px_2px] shadow-neutral-200/45 transition-all duration-200 ${height}`}>
+    <div className={`w-full p-1 relative bg-background hover:shadow-neutral-600 shadow-[0px_1px_5px_2px] shadow-neutral-200/45 transition-all duration-200 hover:my-auto ${height}`}>
       {props?.subHead && (
         <div className="absolute text-sm -inset-y-0 inset-x-1">
           {props.subHead}

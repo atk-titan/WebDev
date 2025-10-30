@@ -105,7 +105,7 @@ const Keybord = () => {
     ],
   ];
   return (
-    <div className="relative border border-neutral-700 p-2 min-w-2xs w-[50vw] h-[16vw] bg-keyboard-color rounded-2xl">
+    <div className="relative border border-neutral-700 p-2 min-w-2xs w-[80vw] h-[22vw] bg-keyboard-color rounded-2xl">
       <div className="h-full w-full flex flex-col">
         {keys.map((row, rowIndex) => {
           return (

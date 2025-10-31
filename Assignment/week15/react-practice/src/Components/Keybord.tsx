@@ -156,7 +156,7 @@ const Keybord = () => {
                   );
                 }
                 return (
-                  <div key={index} className={`${span} p-1 h-full flex items-end `}>
+                  <div key={index} className={`${span} p-2 h-full flex items-end `}>
                     <Key
                       head={key.head}
                       subHead={key.subHead || ""}

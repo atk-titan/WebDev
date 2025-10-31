@@ -16,7 +16,7 @@ const Key = (props: Props) => {
     else height = "h-[50%] hover:h-[47%] rounded hover:my-auto";
   }
   return (
-    <div className={`w-full p-1 relative bg-background hover:shadow-neutral-600 shadow-[0px_1px_5px_2px] shadow-neutral-200/45 transition-all duration-200 ${height}`}>
+    <div className={`w-full p-1 relative bg-background hover:shadow-neutral-600 shadow-[0px_1px_5px_2px] shadow-neutral-200/40 transition-all duration-200 ${height}`}>
       {props?.subHead && (
         <div className="absolute text-sm -inset-y-0 inset-x-1">
           {props.subHead}

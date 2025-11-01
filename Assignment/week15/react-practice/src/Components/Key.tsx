@@ -24,6 +24,7 @@ const Key = (props: Props) => {
       )}
         <div className="h-full w-full flex flex-col items-center justify-center text-foreground/75">
           {props?.icon && (
+            
             <div className="text-xl mb-[-5px]">{props.icon}</div>
           )}
           {!dontInclude.includes(props.head) && <div className={"text-sm"}>

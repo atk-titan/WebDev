@@ -14,7 +14,6 @@ type KeyType = {
   down?: string;
 };
 
-
 const Keybord = () => {
   const keys: KeyType[][] = [
     // Row 1
@@ -124,17 +123,12 @@ const Keybord = () => {
                 else if (key.head === "Backspace") span = "col-span-6";
                 else if (key.head === "dummy") span = "col-span-1 opacity-0 ";
                 else span = "col-span-4";
-                if(key.head === "→" || key.head === "←"){
+                if (key.head === "→" || key.head === "←") {
                   return (
                     <div key={index} className={`${span} relative h-full`}>
                       <div className="h-full flex flex-col p-1">
-                        <div className="h-full">
-
-                        </div>
-                        <Key
-                          head={key?.head}
-                          icon={key.icon}
-                        />
+                        <div className="h-full"></div>
+                        <Key head={key?.head} icon={key.icon} />
                       </div>
                     </div>
                   );
@@ -143,20 +137,17 @@ const Keybord = () => {
                   return (
                     <div key={index} className={`${span} relative h-full`}>
                       <div className="h-full flex flex-col justify-center items-center">
-                        <Key
-                          head={key.up || ""}
-                          icon={key.icon}
-                        />
-                        <Key
-                          head={key?.down || ""}
-                          icon={key.icon}
-                        />
+                        <Key head={key.up || ""} icon={key.icon} />
+                        <Key head={key?.down || ""} icon={key.icon} />
                       </div>
                     </div>
                   );
                 }
                 return (
-                  <div key={index} className={`${span} p-2 h-full flex items-end `}>
+                  <div
+                    key={index}
+                    className={`${span} p-2 h-full flex items-end `}
+                  >
                     <Key
                       head={key.head}
                       subHead={key.subHead || ""}

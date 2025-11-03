@@ -2,7 +2,11 @@ import { useGSAP } from "@gsap/react";
 import type React from "react";
 import gsap from "gsap";
 
-const CustomCursor = ({ refObject }: { refObject: React.RefObject<HTMLDivElement> }) => {
+const CustomCursor = ({
+  refObject,
+}: {
+  refObject: React.RefObject<HTMLDivElement>;
+}) => {
   useGSAP(() => {
     const cursorEl = refObject.current;
     if (!cursorEl) return;
@@ -26,14 +30,26 @@ const CustomCursor = ({ refObject }: { refObject: React.RefObject<HTMLDivElement
     };
 
     const hideOnInteractiveHover = () => {
-      document.querySelectorAll<HTMLElement>(".cursor-pointer, button, a, input, textarea, select").forEach((el) => {
-        el.addEventListener("mouseenter", () => {
-          gsap.to(cursorEl, { opacity: 0, duration: 0.2, ease: "power2.out" });
+      document
+        .querySelectorAll<HTMLElement>(
+          ".cursor-pointer, button, a, input, textarea, select"
+        )
+        .forEach((el) => {
+          el.addEventListener("mouseenter", () => {
+            gsap.to(cursorEl, {
+              opacity: 0,
+              duration: 0.2,
+              ease: "power2.out",
+            });
+          });
+          el.addEventListener("mouseleave", () => {
+            gsap.to(cursorEl, {
+              opacity: 1,
+              duration: 0.3,
+              ease: "power2.out",
+            });
+          });
         });
-        el.addEventListener("mouseleave", () => {
-          gsap.to(cursorEl, { opacity: 1, duration: 0.3, ease: "power2.out" });
-        });
-      });
     };
 
     window.addEventListener("mousemove", moveMouse);
@@ -47,11 +63,11 @@ const CustomCursor = ({ refObject }: { refObject: React.RefObject<HTMLDivElement
   }, []);
 
   return (
-    <div className="fixed inset-0 z-[9999] pointer-events-none" id="cursor-layer">
-      <div
-        ref={refObject}
-        className="absolute top-0 left-0 opacity-0"
-      >
+    <div
+      className="fixed inset-0 z-[9999] pointer-events-none"
+      id="cursor-layer"
+    >
+      <div ref={refObject} className="absolute top-0 left-0 opacity-0">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="16"
